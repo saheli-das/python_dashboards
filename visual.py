@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import requests
 
 # Function to load data from a public Google Drive link
 def load_data_from_google_drive(public_link):
