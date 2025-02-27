@@ -20,7 +20,7 @@ def load_data_from_google_drive(public_link):
 # Cache the data to improve performance
 @st.cache_data
 def load_data():
-    public_link = st.secrets["public_links"]
+    public_link = st.secrets[public_links]
 
 # Streamlit App
 def main():
