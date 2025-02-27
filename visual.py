@@ -6,12 +6,8 @@ import seaborn as sns
 # Function to load data from a public Google Drive link
 def load_data_from_google_drive(public_link):
     try:
-        # Modify the link to force download
-        file_id = public_link.split('/')[-2]
-        download_link = f"https://drive.google.com/uc?export=download&id={file_id}"
-        
         # Load the data into a DataFrame
-        df = pd.read_csv(download_link)
+        df = pd.read_csv(public_link)
         return df
     except Exception as e:
         st.error(f"Error loading data from Google Drive: {e}")
@@ -20,7 +16,9 @@ def load_data_from_google_drive(public_link):
 # Cache the data to improve performance
 @st.cache_data
 def load_data():
-    public_link = st.secrets[public_links]
+    # Fetch the Google Drive link from Streamlit secrets
+    public_link = st.secrets["google_drive_link"]
+    return load_data_from_google_drive(public_link)
 
 # Streamlit App
 def main():
