@@ -6,8 +6,16 @@ import seaborn as sns
 # Function to load data from a public Google Drive link
 def load_data_from_google_drive(public_link):
     try:
+        # Fetch the file content for debugging
+        response = requests.get(public_link)
+        content = response.text
+
+        # Print the first few lines for inspection
+        st.write("First 5 lines of the file:")
+        st.code(content.splitlines()[:5])
+
         # Load the data into a DataFrame
-        df = pd.read_csv(public_link)
+        df = pd.read_csv(public_link, encoding="utf-8")
         return df
     except Exception as e:
         st.error(f"Error loading data from Google Drive: {e}")
