@@ -52,9 +52,7 @@ if st.session_state["logged_in"]:
 
     # Logout Button
     if st.sidebar.button("🚪 Logout"):
-        st.session_state["logged_in"] = False
-        st.sidebar.success("✅ Logged out successfully!")
-        st.rerun()  # Rerun the app to reset the state
+
 
         # Streamlit App
         def main():
