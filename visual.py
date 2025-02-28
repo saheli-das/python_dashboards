@@ -50,8 +50,7 @@ if not st.session_state["logged_in"]:
 if st.session_state["logged_in"]:
 
 
-    # Logout Button
-    if st.sidebar.button("🚪 Logout"):
+
 
 
         # Streamlit App
