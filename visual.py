@@ -426,6 +426,6 @@ if st.session_state["logged_in"]:
                 plt.tight_layout()
                 st.pyplot(plt)
 
-# Run the app
-if __name__ == "__main__":
-    main()
+        # Run the app
+        if __name__ == "__main__":
+            main()
