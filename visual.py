@@ -167,7 +167,7 @@ if st.session_state["logged_in"]:
                 colors = sns.color_palette("pastel")
                 plt.figure(figsize=(2, 2))
                 plt.pie(result_df["no_of_emp"], labels=result_df["emp_status"], autopct="%1.1f%%", colors=colors, startangle=140)
-                plt.title("Employee Attrition Distribution")
+                plt.title("Employee Attrition Distribution", fontsize=6)
                 st.pyplot(plt)
         
                 # Visualization 5: Employee Attrition by Gender
