@@ -1,6 +1,6 @@
 # python & powerBI dashboards
 
-A company provided the data of its employees from 1980 to 2013 in 6 CSV files for analysis of employee data
+A company provided the data of its employees from 1985 to 2013 in 6 CSV files for analysis of employee data
 
 As part of this project, I  designed data model with all the tables to hold data, import the CSVs into a SQL database, and perform analysis using SQL, PowerBI, Python using the data
 
