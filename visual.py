@@ -171,10 +171,49 @@ if st.session_state["logged_in"]:
                 plt.ylabel("Number of Employees ")
                 plt.title("Employee Distribution by Gender")
                 st.pyplot(plt)
+
+                # Visualization 5: Number of Employees by Job Title
+                st.header("📊 Number of Employees by Job Title")
+                result = df.groupby("title").size().reset_index(name="total_emp")
+                result = result.sort_values(by="total_emp", ascending=False)
+                
+           
+                plt.figure(figsize=(10, 6))
+                sns.barplot(x="title", y="total_emp", data=result, hue="title", palette="viridis", legend=False)
+                plt.title("Number of Employees by Job Title", fontsize=16)
+                plt.xlabel("Job Title", fontsize=14)
+                plt.ylabel("Number of Employees", fontsize=14)
+                plt.xticks(rotation=45, fontsize=12)
+                plt.yticks(fontsize=12)
+                
+                # Add value labels on top of each bar
+                for index, value in enumerate(result["total_emp"]):
+                    plt.text(index, value + 0.1, f"{value:,}", ha="center", va="bottom", fontsize=12) 
+                
+                plt.tight_layout()
+                
+           
+                st.pyplot(plt)
+
+                # Visualization 6: Average Salary by Job Title
+                st.header("📊 Average Salary by Job Title")
+                result = df.groupby("title")["salary"].mean().reset_index(name="avg_sal")
+                result = result.sort_values(by="avg_sal", ascending=False)
+                plt.figure(figsize=(10, 6))
+                sns.barplot(x="title", y="avg_sal", data=result, hue="title", palette="viridis")
+                plt.title("Average Salary by Job Title", fontsize=16)
+                plt.xlabel("Job Title", fontsize=14)
+                plt.ylabel("Average Salary", fontsize=14)
+                plt.xticks(rotation=45, fontsize=12)
+                plt.yticks(fontsize=12)
+                for index, value in enumerate(result["avg_sal"]):
+                    plt.text(index, value + 500, f"{int(value)}", ha="center", va="bottom", fontsize=12)
+                plt.tight_layout()
+                st.pyplot(plt)
         
 
         
-                # Visualization 5: Employee Distribution by Salary Range
+                # Visualization 7: Employee Distribution by Salary Range
                 st.header("📊 Employee Distribution by Salary Range")
                 def get_salary_range(salary):
                     if 40000 <= salary <= 60000:
@@ -202,8 +241,10 @@ if st.session_state["logged_in"]:
                 ax2.set_ylabel("Percentage of Total (%)", fontsize=12, color="red")
                 plt.xticks(rotation=45, ha="right")
                 st.pyplot(plt)
+
+
         
-                # Visualization 6: Total Number of People and Percentage per Last Performance Rating
+                # Visualization 8: Total Number of People and Percentage per Last Performance Rating
                 st.header("📊 Total Number of People and Percentage per Last Performance Rating")
                
                 grouped_df = df.groupby("Last_performance_rating").size().reset_index(name="total_no")
@@ -222,7 +263,7 @@ if st.session_state["logged_in"]:
                 plt.tight_layout()
                 st.pyplot(plt)
         
-                # Visualization 7: Number of Employees by Tenure Group
+                # Visualization 9: Number of Employees by Tenure Group
                 st.header("📊 Number of Employees by Tenure Group")
                 
                 def tenure_group(tenure):
@@ -244,7 +285,7 @@ if st.session_state["logged_in"]:
                 plt.yticks(fontsize=12)
                 st.pyplot(plt)
         
-                # Visualization 8: Percentage of Employees by Tenure Group (Pie Chart)
+                # Visualization 10: Percentage of Employees by Tenure Group (Pie Chart)
                 st.header("📊 Percentage of Employees by Tenure Group")
                 plt.figure(figsize=(8, 8))
                 plt.pie(
@@ -256,7 +297,7 @@ if st.session_state["logged_in"]:
                 plt.title("Percentage of Employees by Tenure Group", fontsize=16)
                 st.pyplot(plt)
         
-                # Visualization 9: Number and Percentage of Employees by Age Group
+                # Visualization 11: Number and Percentage of Employees by Age Group
                 st.header("📊 Number and Percentage of Employees by Age Group")
                 df['hire_date'] = pd.to_datetime(df['birth_date'])
                 df['last_date'] = pd.to_datetime(df['last_date'])
@@ -299,47 +340,7 @@ if st.session_state["logged_in"]:
         
                 st.pyplot(fig)
         
-                # Visualization 10: Number of Employees by Job Title
-                st.header("📊 Number of Employees by Job Title")
-                
-               
-                result = df.groupby("title").size().reset_index(name="total_emp")
-                result = result.sort_values(by="total_emp", ascending=False)
-                
-           
-                plt.figure(figsize=(10, 6))
-                sns.barplot(x="title", y="total_emp", data=result, hue="title", palette="viridis", legend=False)
-                plt.title("Number of Employees by Job Title", fontsize=16)
-                plt.xlabel("Job Title", fontsize=14)
-                plt.ylabel("Number of Employees", fontsize=14)
-                plt.xticks(rotation=45, fontsize=12)
-                plt.yticks(fontsize=12)
-                
-                # Add value labels on top of each bar
-                for index, value in enumerate(result["total_emp"]):
-                    plt.text(index, value + 0.1, f"{value:,}", ha="center", va="bottom", fontsize=12) 
-                
-                plt.tight_layout()
-                
-           
-                st.pyplot(plt)
 
-                # Visualization 11: Average Salary by Job Title
-                st.header("📊 Average Salary by Job Title")
-                result = df.groupby("title")["salary"].mean().reset_index(name="avg_sal")
-                result = result.sort_values(by="avg_sal", ascending=False)
-                plt.figure(figsize=(10, 6))
-                sns.barplot(x="title", y="avg_sal", data=result, hue="title", palette="viridis")
-                plt.title("Average Salary by Job Title", fontsize=16)
-                plt.xlabel("Job Title", fontsize=14)
-                plt.ylabel("Average Salary", fontsize=14)
-                plt.xticks(rotation=45, fontsize=12)
-                plt.yticks(fontsize=12)
-                for index, value in enumerate(result["avg_sal"]):
-                    plt.text(index, value + 500, f"{int(value)}", ha="center", va="bottom", fontsize=12)
-                plt.tight_layout()
-                st.pyplot(plt)
-        
                 # Visualization 12: Number of Employees Hired by Year
                 st.header("📊 Number of Employees Hired by Year")
                 df["hire_date"] = pd.to_datetime(df["hire_date"], errors="coerce")
@@ -374,6 +375,7 @@ if st.session_state["logged_in"]:
                 plt.xticks(rotation=45)
                 plt.tight_layout()
                 st.pyplot(plt)
+
         
                 # Visualization 14: Average Salary by Hire Year
                 st.header("📊 Average Salary by Hire Year")
