@@ -183,10 +183,10 @@ if st.session_state["logged_in"]:
                 plt.title("Employee Distribution by Gender")
                 st.pyplot(plt)
         
-                # Visualization 6: Employee Attrition by Job Title
-                st.header("📊 Employee Attrition by Job Title")
-                df_filtered = df[df["left"] == 1]
-                title_counts = df_filtered.groupby("title").size().reset_index(name="total_no")
+                # Visualization 6: Employee Distribution by Job Title
+                st.header("📊 Employee Distribution by Job Title")
+               
+                title_counts = df.groupby("title").size().reset_index(name="total_no")
                 total_sum = title_counts["total_no"].sum()
                 title_counts["pct"] = title_counts["total_no"] * 100.0 / total_sum
                 title_counts_sorted = title_counts.sort_values(by="total_no", ascending=False)
@@ -194,13 +194,13 @@ if st.session_state["logged_in"]:
                 sns.barplot(x="total_no", y="title", hue="title", data=title_counts_sorted, palette="viridis")
                 plt.xlabel("Total Count")
                 plt.ylabel("Job Title")
-                plt.title("Employee Attrition by Job Title")
+                plt.title("Employee Distribution by Job Title")
                 for index, row in title_counts_sorted.iterrows():
                     plt.text(row["total_no"] + 100, index, f"{row['pct']:.2f}%", va="center", fontsize=9)
                 st.pyplot(plt)
         
-                # Visualization 7: Employee Attrition by Salary Range
-                st.header("📊 Employee Attrition by Salary Range")
+                # Visualization 7: Employee Distribution by Salary Range
+                st.header("📊 Employee Distribution by Salary Range")
                 def get_salary_range(salary):
                     if 40000 <= salary <= 60000:
                         return "40k-60k"
@@ -219,7 +219,7 @@ if st.session_state["logged_in"]:
                 salary_counts_sorted = salary_counts.sort_values("salary_range")
                 plt.figure(figsize=(12, 6))
                 sns.barplot(data=salary_counts_sorted, x="salary_range", y="NO_OF_EMP", hue="salary_range", palette="viridis")
-                plt.title("Employee Attrition by Salary Range")
+                plt.title("Employee Distribution by Salary Range")
                 plt.xlabel("Salary Range")
                 plt.ylabel("Number of Employees")
                 ax2 = plt.gca().twinx()
@@ -230,8 +230,8 @@ if st.session_state["logged_in"]:
         
                 # Visualization 8: Total Number of People and Percentage per Last Performance Rating
                 st.header("📊 Total Number of People and Percentage per Last Performance Rating")
-                filtered_df = df[df["left"] == 1]
-                grouped_df = filtered_df.groupby("Last_performance_rating").size().reset_index(name="total_no")
+               
+                grouped_df = df.groupby("Last_performance_rating").size().reset_index(name="total_no")
                 total_count = grouped_df["total_no"].sum()
                 grouped_df["pct"] = (grouped_df["total_no"] * 100.0) / total_count
                 grouped_df = grouped_df.sort_values(by="total_no", ascending=False)
