@@ -256,6 +256,7 @@ if st.session_state["logged_in"]:
                     elif 4 < tenure <= 8:
                         return "Medium Tenure(>4 to <=8)"
                     else:
+                        return "High Tenure(>8 to <=14)"
                 df["tenure_group"] = df["tenure"].apply(tenure_group)
                 grouped_df = df.groupby("tenure_group").size().reset_index(name="NO_OF_EMP")
                 grouped_df["PCT"] = (grouped_df["NO_OF_EMP"] * 100.00) / grouped_df["NO_OF_EMP"].sum()
