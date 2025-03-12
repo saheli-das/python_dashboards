@@ -343,8 +343,8 @@ if st.session_state["logged_in"]:
 
                 # Visualization 12: Number of Employees Hired by Year
 
-                final_table["hire_date"] = pd.to_datetime(final_table["hire_date"]).dt.year
-                result = final_table.groupby("hire_date").size().reset_index(name="employee_count")
+                df["hire_date"] = pd.to_datetime(df["hire_date"]).dt.year
+                result = df.groupby("hire_date").size().reset_index(name="employee_count")
                 result = result.sort_values(by="hire_date")
                 sns.set(style="dark")
                 
