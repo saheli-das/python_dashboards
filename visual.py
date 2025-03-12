@@ -343,14 +343,13 @@ if st.session_state["logged_in"]:
 
                 # Visualization 12: Number of Employees Hired by Year
                 st.header("📊 Number of Employees Hired by Year")
-                result = pd.to_datetime(df["hire_date"]).dt.year
-                
-                result = result.groupby("hire_date").size().reset_index(name="employee_count")
-                result = result.sort_values(by="hire_date")
+                df["hire_year"] = pd.to_datetime(df["hire_date"]).dt.year  
+                result = df.groupby("hire_year").size().reset_index(name="employee_count")  
+                result = result.sort_values(by="hire_year")  
                 sns.set(style="dark")
                 
                 plt.figure(figsize=(10, 6))
-                sns.lineplot(x='hire_date', y='employee_count', data=result, marker='o', color='blue')
+                sns.lineplot(x='hire_year', y='employee_count', data=result, marker='o', color='blue')
                 plt.title('Number of Employees Hired by Year', fontsize=16)
                 plt.xlabel('Year', fontsize=14)
                 plt.ylabel('Number of Employees', fontsize=14)
@@ -358,7 +357,7 @@ if st.session_state["logged_in"]:
                 plt.yticks(fontsize=12)
                 
                 for index, row in result.iterrows():
-                    plt.text(row['hire_date'], row['employee_count'] + 0.1, f"{row['employee_count']:,}", ha='center', va='bottom', fontsize=12)
+                    plt.text(row['hire_year'], row['employee_count'] + 0.1, f"{row['employee_count']:,}", ha='center', va='bottom', fontsize=12)
                 
                 plt.grid(False)
                 plt.tight_layout()
@@ -382,11 +381,9 @@ if st.session_state["logged_in"]:
 
         
                 # Visualization 14: Average Salary by Hire Year
-                st.header("📊 Average Salary by Hire Year")
-                df["hire_year"] = pd.to_datetime(df["hire_date"]).dt.year
-                
-                result = df.groupby("hire_year")["salary"].mean().reset_index(name="avg_salary")
-                result = result.sort_values(by="hire_year")
+                st.header("📊 Average Salary by Hire Year")              
+                result_new = df.groupby("hire_year")["salary"].mean().reset_index(name="avg_salary")
+                result_new = result_new.sort_values(by="hire_year")
                 plt.figure(figsize=(6, 4))
                 sns.lineplot(data=result, x="hire_year", y="avg_salary", marker="o", color="green")
                 plt.title("Average Salary by Hire Year", fontsize=16)
