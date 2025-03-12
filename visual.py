@@ -132,7 +132,7 @@ if st.session_state["logged_in"]:
         
 
         
-                # Visualization 3: Tenure Distribution
+                # Visualization 2: Tenure Distribution
                 st.header("📊 Tenure Distribution of Employees")
                 plt.figure(figsize=(6, 4))
                 plt.hist(df["tenure"], color="skyblue", edgecolor="black")
@@ -142,7 +142,7 @@ if st.session_state["logged_in"]:
                 plt.grid(axis="y", linestyle="--", alpha=0.7)
                 st.pyplot(plt)
         
-                # Visualization 4: Employee  Distribution
+                # Visualization 3: Employee  Distribution
                 st.header("📊 Employee Distribution")
                 emp_left = df[df["left"] == 1].shape[0]
                 emp_stayed = df[df["left"] == 0].shape[0]
@@ -157,7 +157,7 @@ if st.session_state["logged_in"]:
                 plt.title("Employee Distribution", fontsize=4)
                 st.pyplot(plt)
         
-                # Visualization 5: Employee Distribution by Gender
+                # Visualization 4: Employee Distribution by Gender
                 st.header("📊 Employee Distribution by Gender")
                 male_emp = df[(df["sex"] == "M")].shape[0]
                 female_emp = df[ (df["sex"] == "F")].shape[0]
@@ -172,23 +172,9 @@ if st.session_state["logged_in"]:
                 plt.title("Employee Distribution by Gender")
                 st.pyplot(plt)
         
-                # Visualization 6: Employee Distribution by Job Title
-                st.header("📊 Employee Distribution by Job Title")
-               
-                title_counts = df.groupby("title").size().reset_index(name="total_no")
-                total_sum = title_counts["total_no"].sum()
-                title_counts["pct"] = title_counts["total_no"] * 100.0 / total_sum
-                title_counts_sorted = title_counts.sort_values(by="total_no", ascending=False)
-                plt.figure(figsize=(12, 6))
-                sns.barplot(x="total_no", y="title", hue="title", data=title_counts_sorted, palette="viridis")
-                plt.xlabel("Total Count")
-                plt.ylabel("Job Title")
-                plt.title("Employee Distribution by Job Title")
-                for index, row in title_counts_sorted.iterrows():
-                    plt.text(row["total_no"] + 100, index, f"{row['pct']:.2f}%", va="center", fontsize=9)
-                st.pyplot(plt)
+
         
-                # Visualization 7: Employee Distribution by Salary Range
+                # Visualization 5: Employee Distribution by Salary Range
                 st.header("📊 Employee Distribution by Salary Range")
                 def get_salary_range(salary):
                     if 40000 <= salary <= 60000:
@@ -217,7 +203,7 @@ if st.session_state["logged_in"]:
                 plt.xticks(rotation=45, ha="right")
                 st.pyplot(plt)
         
-                # Visualization 8: Total Number of People and Percentage per Last Performance Rating
+                # Visualization 6: Total Number of People and Percentage per Last Performance Rating
                 st.header("📊 Total Number of People and Percentage per Last Performance Rating")
                
                 grouped_df = df.groupby("Last_performance_rating").size().reset_index(name="total_no")
@@ -236,7 +222,7 @@ if st.session_state["logged_in"]:
                 plt.tight_layout()
                 st.pyplot(plt)
         
-                # Visualization 9: Number of Employees by Tenure Group
+                # Visualization 7: Number of Employees by Tenure Group
                 st.header("📊 Number of Employees by Tenure Group")
                 
                 def tenure_group(tenure):
@@ -258,7 +244,7 @@ if st.session_state["logged_in"]:
                 plt.yticks(fontsize=12)
                 st.pyplot(plt)
         
-                # Visualization 10: Percentage of Employees by Tenure Group (Pie Chart)
+                # Visualization 8: Percentage of Employees by Tenure Group (Pie Chart)
                 st.header("📊 Percentage of Employees by Tenure Group")
                 plt.figure(figsize=(8, 8))
                 plt.pie(
@@ -270,8 +256,8 @@ if st.session_state["logged_in"]:
                 plt.title("Percentage of Employees by Tenure Group", fontsize=16)
                 st.pyplot(plt)
         
-                # Visualization 11: Number and Percentage of Employees by Age Group
-                st.header("📊 Number and Percentage of Employees who left by Age Group")
+                # Visualization 9: Number and Percentage of Employees by Age Group
+                st.header("📊 Number and Percentage of Employees by Age Group")
                 df['hire_date'] = pd.to_datetime(df['birth_date'])
                 df['last_date'] = pd.to_datetime(df['last_date'])
         
@@ -313,15 +299,14 @@ if st.session_state["logged_in"]:
         
                 st.pyplot(fig)
         
-                # Visualization 12: Number of Employees by Job Title
-                # Assuming df is your DataFrame
+                # Visualization 10: Number of Employees by Job Title
                 st.header("📊 Number of Employees by Job Title")
                 
-                # Group by job title and count employees
+               
                 result = df.groupby("title").size().reset_index(name="total_emp")
                 result = result.sort_values(by="total_emp", ascending=False)
                 
-                # Create the bar plot
+           
                 plt.figure(figsize=(10, 6))
                 sns.barplot(x="title", y="total_emp", data=result, hue="title", palette="viridis", legend=False)
                 plt.title("Number of Employees by Job Title", fontsize=16)
@@ -332,14 +317,14 @@ if st.session_state["logged_in"]:
                 
                 # Add value labels on top of each bar
                 for index, value in enumerate(result["total_emp"]):
-                    plt.text(index, value + 0.1, f"{value:,}", ha="center", va="bottom", fontsize=12)  # Format with thousand separator
+                    plt.text(index, value + 0.1, f"{value:,}", ha="center", va="bottom", fontsize=12) 
                 
                 plt.tight_layout()
                 
-                # Display the plot in Streamlit
+           
                 st.pyplot(plt)
 
-                # Visualization 13: Average Salary by Job Title
+                # Visualization 11: Average Salary by Job Title
                 st.header("📊 Average Salary by Job Title")
                 result = df.groupby("title")["salary"].mean().reset_index(name="avg_sal")
                 result = result.sort_values(by="avg_sal", ascending=False)
@@ -355,7 +340,7 @@ if st.session_state["logged_in"]:
                 plt.tight_layout()
                 st.pyplot(plt)
         
-                # Visualization 14: Number of Employees Hired by Year
+                # Visualization 12: Number of Employees Hired by Year
                 st.header("📊 Number of Employees Hired by Year")
                 df["hire_date"] = pd.to_datetime(df["hire_date"], errors="coerce")
                 df["hire_year"] = df["hire_date"].dt.year
@@ -374,7 +359,7 @@ if st.session_state["logged_in"]:
                 plt.tight_layout()
                 st.pyplot(plt)
         
-                # Visualization 15: Number of Exits per Year
+                # Visualization 13: Number of Exits per Year
                 st.header("📊 Number of Exits per Year")
                 df["last_date"] = pd.to_datetime(df["last_date"], errors="coerce")
                 df_valid = df[df["last_date"].notna()]
@@ -390,7 +375,7 @@ if st.session_state["logged_in"]:
                 plt.tight_layout()
                 st.pyplot(plt)
         
-                # Visualization 16: Average Salary by Hire Year
+                # Visualization 14: Average Salary by Hire Year
                 st.header("📊 Average Salary by Hire Year")
                 df["hire_date"] = pd.to_datetime(df["hire_date"], errors="coerce")
                 df["hire_year"] = df["hire_date"].dt.year
@@ -405,7 +390,7 @@ if st.session_state["logged_in"]:
                 plt.tight_layout()
                 st.pyplot(plt)
         
-                # Visualization 17: Gender Distribution in the Company
+                # Visualization 15: Gender Distribution in the Company
                 st.header("📊 Gender Distribution in the Company")
                 female_count = df[df["sex"] == "F"].shape[0]
                 male_count = df[df["sex"] == "M"].shape[0]
