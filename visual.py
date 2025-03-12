@@ -314,21 +314,31 @@ if st.session_state["logged_in"]:
                 st.pyplot(fig)
         
                 # Visualization 12: Number of Employees by Job Title
+                # Assuming df is your DataFrame
                 st.header("📊 Number of Employees by Job Title")
+                
+                # Group by job title and count employees
                 result = df.groupby("title").size().reset_index(name="total_emp")
                 result = result.sort_values(by="total_emp", ascending=False)
+                
+                # Create the bar plot
                 plt.figure(figsize=(10, 6))
-                sns.barplot(x="title", y="total_emp", data=result, hue="title", palette="viridis")
+                sns.barplot(x="title", y="total_emp", data=result, hue="title", palette="viridis", legend=False)
                 plt.title("Number of Employees by Job Title", fontsize=16)
                 plt.xlabel("Job Title", fontsize=14)
                 plt.ylabel("Number of Employees", fontsize=14)
                 plt.xticks(rotation=45, fontsize=12)
                 plt.yticks(fontsize=12)
+                
+                # Add value labels on top of each bar
                 for index, value in enumerate(result["total_emp"]):
-                    plt.text(index, value + 0.1, str(value), ha="center", va="bottom", fontsize=12)
+                    plt.text(index, value + 0.1, f"{value:,}", ha="center", va="bottom", fontsize=12)  # Format with thousand separator
+                
                 plt.tight_layout()
+                
+                # Display the plot in Streamlit
                 st.pyplot(plt)
-        
+
                 # Visualization 13: Average Salary by Job Title
                 st.header("📊 Average Salary by Job Title")
                 result = df.groupby("title")["salary"].mean().reset_index(name="avg_sal")
