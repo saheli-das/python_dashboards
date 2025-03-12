@@ -342,6 +342,7 @@ if st.session_state["logged_in"]:
         
 
                 # Visualization 12: Number of Employees Hired by Year
+                st.header("📊 Number of Employees Hired by Year")
                 df["hire_year"] = pd.to_datetime(df["hire_date"]).dt.year
                 
                 result = df.groupby("hire_year").size().reset_index(name="employee_count")
@@ -361,7 +362,7 @@ if st.session_state["logged_in"]:
                 
                 plt.grid(False)
                 plt.tight_layout()
-                plt.show()
+                st.pyplot(plt)
         
                 # Visualization 13: Number of Exits per Year
                 st.header("📊 Number of Exits per Year")
