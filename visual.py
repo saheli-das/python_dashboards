@@ -343,13 +343,13 @@ if st.session_state["logged_in"]:
 
                 # Visualization 12: Number of Employees Hired by Year
 
-                df["hire_date"] = pd.to_datetime(df["hire_date"]).dt.year
-                result = df.groupby("hire_date").size().reset_index(name="employee_count")
-                result = result.sort_values(by="hire_date")
+                df["hire_year"] = pd.to_datetime(df["hire_date"]).dt.year
+                result = df.groupby("hire_year").size().reset_index(name="employee_count")
+                result = result.sort_values(by="hire_year")
                 sns.set(style="dark")
                 
                 plt.figure(figsize=(10, 6))
-                sns.lineplot(x='hire_date', y='employee_count', data=result, marker='o', color='blue')
+                sns.lineplot(x='hire_year', y='employee_count', data=result, marker='o', color='blue')
                 
                 plt.title('Number of Employees Hired by Year', fontsize=16)
                 plt.xlabel('Year', fontsize=14)
@@ -358,7 +358,7 @@ if st.session_state["logged_in"]:
                 plt.yticks(fontsize=12)
                 
                 for index, row in result.iterrows():
-                    plt.text(row['hire_date'], row['employee_count'] + 0.1, f"{row['employee_count']:,}", ha='center', va='bottom', fontsize=12)
+                    plt.text(row['hire_year'], row['employee_count'] + 0.1, f"{row['employee_count']:,}", ha='center', va='bottom', fontsize=12)
 
                 plt.grid(False)
                 plt.tight_layout()
