@@ -102,24 +102,22 @@ if st.session_state["logged_in"]:
         
                 # Display key metrics
                 st.header("📈 Key Metrics")
-                col1, col2, col3, col4 = st.columns(4)
+                col1, col2, col3 = st.columns(3)
                 with col1:
-                    st.metric("Total Employees", df.shape[0])
+                    st.metric("Total Employees", f"{df.shape[0]:,}")
                 with col2:
-                    st.metric("Employees Left", df[df["left"] == 1].shape[0])
+                    st.metric("Employees Left", f"{df[df["left"] == 1].shape[0]:,}")
                 with col3:
-                    st.metric("Employees Stayed", df[df["left"] == 0].shape[0])
-                with col4:
-                    st.metric("Maximum Salary", f"{df['salary'].max():,.2f}")
+                    st.metric("Employees Stayed", f"{df[df["left"] == 0].shape[0]:,}")
         
-                col5, col6, col7, col8 = st.columns(4)
+        
+                col4, col5, col6 = st.columns(3)
+        
+                with col4:
+                    st.metric("Average Salary", f"{int(df['salary'].mean()):,}")
                 with col5:
-                    st.metric("Minimum Salary", f"{df['salary'].min():,.2f}")
-                with col6:
-                    st.metric("Average Salary", f"{df['salary'].mean():,.2f}")
-                with col7:
                     st.metric("Average Tenure", f"{df['tenure'].mean():.2f} yr")
-                with col8:
+                with col6:
                     st.metric("Median Tenure", f"{df['tenure'].median():.2f} yr")
         
                 # Visualization 1: Salary Distribution
@@ -155,7 +153,7 @@ if st.session_state["logged_in"]:
                 plt.grid(axis="y", linestyle="--", alpha=0.7)
                 st.pyplot(plt)
         
-                # Visualization 4: Employee Attrition Distribution
+                # Visualization 4: Employee  Distribution
                 st.header("📊 Employee Attrition Distribution")
                 emp_left = df[df["left"] == 1].shape[0]
                 emp_stayed = df[df["left"] == 0].shape[0]
@@ -167,13 +165,13 @@ if st.session_state["logged_in"]:
                 colors = sns.color_palette("pastel")
                 plt.figure(figsize=(2, 2))
                 plt.pie(result_df["no_of_emp"], labels=result_df["emp_status"], autopct="%1.1f%%", colors=colors, startangle=140)
-                plt.title("Employee Attrition Distribution", fontsize=4)
+                plt.title("Employee Distribution", fontsize=4)
                 st.pyplot(plt)
         
-                # Visualization 5: Employee Attrition by Gender
-                st.header("📊 Employee Attrition by Gender")
-                male_emp = df[(df["left"] == 1) & (df["sex"] == "M")].shape[0]
-                female_emp = df[(df["left"] == 1) & (df["sex"] == "F")].shape[0]
+                # Visualization 5: Employee Distribution by Gender
+                st.header("📊 Employee Distribution by Gender")
+                male_emp = df[(df["sex"] == "M")].shape[0]
+                female_emp = df[ (df["sex"] == "F")].shape[0]
                 gen_df = pd.DataFrame({
                     "emp_gender": ["Male", "Female"],
                     "no_of_emp": [male_emp, female_emp]
@@ -181,8 +179,8 @@ if st.session_state["logged_in"]:
                 plt.figure(figsize=(6, 4))
                 sns.barplot(x="emp_gender", y="no_of_emp", data=gen_df, hue="emp_gender", legend=False, palette="coolwarm")
                 plt.xlabel("Gender")
-                plt.ylabel("Number of Employees Left")
-                plt.title("Employee Attrition by Gender")
+                plt.ylabel("Number of Employees ")
+                plt.title("Employee Distribution by Gender")
                 st.pyplot(plt)
         
                 # Visualization 6: Employee Attrition by Job Title
