@@ -355,7 +355,7 @@ if st.session_state["logged_in"]:
                 plt.xticks(fontsize=12)
                 plt.yticks(fontsize=12)
                 for index, row in result.iterrows():
-                    plt.text(row["hire_year"], row["employee_count"] + 0.1, str(row["employee_count"]), ha="center", va="bottom", fontsize=12)
+                    plt.text(row["hire_year"], row["employee_count"] + 0.1, f"{row['employee_count']:,}" , ha="center", va="bottom", fontsize=12)
                 plt.grid(False)
                 plt.tight_layout()
                 st.pyplot(plt)
