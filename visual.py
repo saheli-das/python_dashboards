@@ -16,13 +16,10 @@ def load_data_from_google_drive(public_link):
         st.write("First 5 lines of the file:")
         st.code(content.splitlines()[:5])
 
-        
-        # Define a custom date parser (adjust the format as needed)
-        def custom_date_parser(date_str):
-            return datetime.strptime(date_str, "%YY-%m-%d") 
+
 
         # Load the data into a DataFrame
-        df = pd.read_csv(public_link, encoding="utf-8", parse_dates=["hire_date", "birth_date", "last_date"],date_parser=custom_date_parser)
+        df = pd.read_csv(public_link, encoding="utf-8", parse_dates=["hire_date", "birth_date", "last_date"])
         return df
     except Exception as e:
         st.error(f"Error loading data from Google Drive: {e}")
