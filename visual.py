@@ -154,7 +154,7 @@ if st.session_state["logged_in"]:
                 st.pyplot(plt)
         
                 # Visualization 4: Employee  Distribution
-                st.header("📊 Employee Attrition Distribution")
+                st.header("📊 Employee Distribution")
                 emp_left = df[df["left"] == 1].shape[0]
                 emp_stayed = df[df["left"] == 0].shape[0]
                 result_df = pd.DataFrame({
