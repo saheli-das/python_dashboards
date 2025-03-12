@@ -19,7 +19,10 @@ def load_data_from_google_drive(public_link):
         
         # Define a custom date parser (adjust the format as needed)
         def custom_date_parser(date_str):
-            return datetime.strptime(date_str, "%Y-%m-%d") 
+            try:
+                return datetime.strptime(date_str, "%Y-%m-%d")  # Try YYYY-MM-DD first
+            except ValueError:
+                return datetime.strptime(date_str, "%d-%m-%Y")  # Fallback to DD-MM-YYYY
 
         # Load the data into a DataFrame
         df = pd.read_csv(public_link, encoding="utf-8", parse_dates=["hire_date", "birth_date", "last_date"],date_parser=custom_date_parser)
