@@ -130,18 +130,7 @@ if st.session_state["logged_in"]:
                 plt.grid(False)
                 st.pyplot(plt)
         
-                # Visualization 2: Average Salary by Job Title
-                st.header("📊 Average Salary Per Title")
-                unique_employees = df.drop_duplicates(subset="emp_no")
-                avg_salary_by_title = unique_employees.groupby("title")["salary"].mean().sort_values(ascending=False).reset_index()
-                plt.figure(figsize=(8, 4))
-                sns.barplot(x="title", y="salary", data=avg_salary_by_title, palette="viridis")
-                plt.title("Average Salary Per Title")
-                plt.xlabel("Job Title")
-                plt.ylabel("Average Salary")
-                plt.xticks(rotation=45)
-                plt.grid(axis="y", linestyle="--", alpha=0.7)
-                st.pyplot(plt)
+
         
                 # Visualization 3: Tenure Distribution
                 st.header("📊 Tenure Distribution of Employees")
@@ -352,7 +341,7 @@ if st.session_state["logged_in"]:
                 plt.xticks(rotation=45, fontsize=12)
                 plt.yticks(fontsize=12)
                 for index, value in enumerate(result["avg_sal"]):
-                    plt.text(index, value + 500, f"{value:.2f}", ha="center", va="bottom", fontsize=12)
+                    plt.text(index, value + 500, f"{int(value)}", ha="center", va="bottom", fontsize=12)
                 plt.tight_layout()
                 st.pyplot(plt)
         
