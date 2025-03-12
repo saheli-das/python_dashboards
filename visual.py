@@ -153,7 +153,7 @@ if st.session_state["logged_in"]:
                 result_df["percntg"] = (result_df["no_of_emp"] * 100.00) / result_df["no_of_emp"].sum()
                 colors = sns.color_palette("pastel")
                 plt.figure(figsize=(2, 2))
-                plt.pie(result_df["no_of_emp"], labels=result_df["emp_status"], autopct="%1.1f%%", colors=colors, startangle=140)
+                plt.pie(result_df["no_of_emp"], labels=result_df["emp_status"], autopct="%1.1f%%", colors=colors, startangle=140, textprops={"fontsize": 8} )
                 plt.title("Employee Distribution", fontsize=4)
                 st.pyplot(plt)
         
