@@ -249,16 +249,15 @@ if st.session_state["logged_in"]:
         
                 # Visualization 9: Number of Employees by Tenure Group
                 st.header("📊 Number of Employees by Tenure Group")
-                filtered_df = df[df["left"] == 1]
+                
                 def tenure_group(tenure):
                     if 1 <= tenure <= 4:
                         return "Low Tenure(>=1 to <=4)"
                     elif 4 < tenure <= 8:
                         return "Medium Tenure(>4 to <=8)"
                     else:
-                        return "High Tenure(>8 to <=14)"
-                filtered_df["tenure_group"] = filtered_df["tenure"].apply(tenure_group)
-                grouped_df = filtered_df.groupby("tenure_group").size().reset_index(name="NO_OF_EMP")
+                df["tenure_group"] = df["tenure"].apply(tenure_group)
+                grouped_df = df.groupby("tenure_group").size().reset_index(name="NO_OF_EMP")
                 grouped_df["PCT"] = (grouped_df["NO_OF_EMP"] * 100.00) / grouped_df["NO_OF_EMP"].sum()
                 plt.figure(figsize=(10, 6))
                 sns.barplot(x="tenure_group", y="NO_OF_EMP", data=grouped_df, hue="tenure_group", palette="viridis")
@@ -290,7 +289,7 @@ if st.session_state["logged_in"]:
         
                 df['age'] = ((df['last_date'].fillna(pd.Timestamp.today()) - df['birth_date']).dt.days) / 365
         
-                filtered_df = df[df["left"] == 1]
+                
         
                 def age_group(age):
                     if 21 <= age <= 30:
@@ -304,9 +303,9 @@ if st.session_state["logged_in"]:
                     else:
                         return ">60"
         
-                filtered_df["age_group"] = filtered_df["age"].apply(age_group)
+                df["age_group"] = df["age"].apply(age_group)
         
-                grouped_df = filtered_df.groupby("age_group").size().reset_index(name="NO_OF_EMP")
+                grouped_df = df.groupby("age_group").size().reset_index(name="NO_OF_EMP")
                 grouped_df["PCT"] = (grouped_df["NO_OF_EMP"] * 100.00) / grouped_df["NO_OF_EMP"].sum()
         
                 fig, ax1 = plt.subplots(figsize=(12, 6))
