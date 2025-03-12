@@ -16,8 +16,6 @@ def load_data_from_google_drive(public_link):
         st.write("First 5 lines of the file:")
         st.code(content.splitlines()[:5])
 
-
-
         # Load the data into a DataFrame
         df = pd.read_csv(public_link, encoding="utf-8")
         return df
