@@ -207,7 +207,7 @@ if st.session_state["logged_in"]:
                 plt.xticks(rotation=45, fontsize=12)
                 plt.yticks(fontsize=12)
                 for index, value in enumerate(result["avg_sal"]):
-                    plt.text(index, value + 500, f"{int(value)}", ha="center", va="bottom", fontsize=12)
+                    plt.text(index, value + 500, f"{int(value):,}", ha="center", va="bottom", fontsize=12)
                 plt.tight_layout()
                 st.pyplot(plt)
         
