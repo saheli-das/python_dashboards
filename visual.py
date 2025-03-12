@@ -253,7 +253,7 @@ if st.session_state["logged_in"]:
                 grouped_df = grouped_df.sort_values(by="total_no", ascending=False)
                 plt.figure(figsize=(12, 6))
                 sns.barplot(x="Last_performance_rating", y="total_no", data=grouped_df, hue="Last_performance_rating", palette="viridis")
-                plt.title("Total Number of People and Percentage per Last Performance Rating", fontsize=16)
+                plt.title("Total Number of People and Percentage by Last Performance Rating", fontsize=16)
                 plt.xlabel("Last Performance Rating", fontsize=12)
                 plt.ylabel("Total Number of People", fontsize=12)
                 ax2 = plt.gca().twinx()
