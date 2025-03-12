@@ -318,10 +318,10 @@ if st.session_state["logged_in"]:
                 result = df.groupby("title").size().reset_index(name="total_emp")
                 result = result.sort_values(by="total_emp", ascending=False)
                 plt.figure(figsize=(10, 6))
-                sns.barplot(x="total_emp", y="title", data=result, hue="title", palette="viridis")
+                sns.barplot(x="title", y="total_emp", data=result, hue="title", palette="viridis")
                 plt.title("Number of Employees by Job Title", fontsize=16)
-                plt.xlabel("Number of Employees", fontsize=14)
-                plt.ylabel("Job Title", fontsize=14)
+                plt.xlabel("Job Title", fontsize=14)
+                plt.ylabel("Number of Employees", fontsize=14)
                 plt.xticks(rotation=45, fontsize=12)
                 plt.yticks(fontsize=12)
                 for index, value in enumerate(result["total_emp"]):
