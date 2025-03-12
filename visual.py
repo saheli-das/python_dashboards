@@ -244,8 +244,8 @@ if st.session_state["logged_in"]:
 
 
         
-                # Visualization 8: Total Number of People and Percentage per Last Performance Rating
-                st.header("📊 Total Number of People and Percentage per Last Performance Rating")
+                # Visualization 8: Total Number of People and Percentage by Last Performance Rating
+                st.header("📊 Total Number of People and Percentage by Last Performance Rating")
                
                 grouped_df = df.groupby("Last_performance_rating").size().reset_index(name="total_no")
                 total_count = grouped_df["total_no"].sum()
