@@ -383,8 +383,8 @@ if st.session_state["logged_in"]:
         
                 # Visualization 14: Average Salary by Hire Year
                 st.header("📊 Average Salary by Hire Year")
-                df["hire_date"] = pd.to_datetime(df["hire_date"], errors="coerce")
-                df["hire_year"] = df["hire_date"].dt.year
+                df["hire_year"] = pd.to_datetime(df["hire_date"], errors="coerce").dt.year
+                
                 result = df.groupby("hire_year")["salary"].mean().reset_index(name="avg_salary")
                 result = result.sort_values(by="hire_year")
                 plt.figure(figsize=(6, 4))
