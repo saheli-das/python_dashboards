@@ -19,7 +19,7 @@ def load_data_from_google_drive(public_link):
 
 
         # Load the data into a DataFrame
-        df = pd.read_csv(public_link, encoding="utf-8", parse_dates=["hire_date", "birth_date", "last_date"])
+        df = pd.read_csv(public_link, encoding="utf-8")
         return df
     except Exception as e:
         st.error(f"Error loading data from Google Drive: {e}")
