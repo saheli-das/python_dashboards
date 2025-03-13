@@ -373,7 +373,7 @@ if st.session_state["logged_in"]:
                 exit_counts_sorted = exit_counts.sort_values(by="exit_year").reset_index(drop=True)
                 plt.figure(figsize=(6, 4))
                 sns.lineplot(data=exit_counts_sorted, x="exit_year", y="total_exits", marker="o", color="blue")
-                plt.title("Number of Exits per Year", fontsize=8)
+                plt.title("Number of Exits per Year", fontsize=12)
                 plt.xlabel("Exit Year", fontsize=12)
                 plt.ylabel("Total Exits", fontsize=12)
                 plt.xticks(rotation=45)
