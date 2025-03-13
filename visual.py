@@ -381,20 +381,7 @@ if st.session_state["logged_in"]:
                 st.pyplot(plt)
 
         
-                # Visualization 14: Average Salary by Hire Year
-                st.header("📊 Average Salary by Hire Year")              
-                result_new = df.groupby("hire_year")["salary"].mean().reset_index(name="avg_salary")
-                result_new = result_new.sort_values(by="hire_year")
-                plt.figure(figsize=(6, 4))
-                sns.lineplot(data=result, x="hire_year", y="avg_salary", marker="o", color="green")
-                plt.title("Average Salary by Hire Year", fontsize=16)
-                plt.xlabel("Hire Year", fontsize=12)
-                plt.ylabel("Average Salary", fontsize=12)
-                plt.xticks(rotation=45)
-                plt.tight_layout()
-                st.pyplot(plt)
-        
-                # Visualization 15: Gender Distribution in the Company
+                # Visualization 14: Gender Distribution in the Company
                 st.header("📊 Gender Distribution in the Company")
                 female_count = df[df["sex"] == "F"].shape[0]
                 male_count = df[df["sex"] == "M"].shape[0]
