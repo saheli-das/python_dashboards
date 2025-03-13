@@ -373,7 +373,7 @@ if st.session_state["logged_in"]:
                 exit_counts_sorted = exit_counts.sort_values(by="exit_year").reset_index(drop=True)
                 plt.figure(figsize=(6, 4))
                 sns.lineplot(data=exit_counts_sorted, x="exit_year", y="total_exits", marker="o", color="blue")
-                plt.title("Number of Exits per Year", fontsize=16)
+                plt.title("Number of Exits per Year", fontsize=8)
                 plt.xlabel("Exit Year", fontsize=12)
                 plt.ylabel("Total Exits", fontsize=12)
                 plt.xticks(rotation=45)
@@ -393,7 +393,7 @@ if st.session_state["logged_in"]:
                 gender_counts["pct"] = (gender_counts["total_no"] * 100) / total_count
                 plt.figure(figsize=(3, 3))
                 plt.pie(gender_counts["total_no"], labels=gender_counts["gender"], autopct="%1.1f%%", startangle=90, colors=["#ff9999", "#66b3ff"])
-                plt.title("Gender Distribution in the Company", fontsize=16)
+                plt.title("Gender Distribution in the Company", fontsize=8)
                 plt.axis("equal")
                 plt.tight_layout()
                 st.pyplot(plt)
