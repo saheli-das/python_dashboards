@@ -342,29 +342,9 @@ if st.session_state["logged_in"]:
                 st.pyplot(fig)
         
 
-                # Visualization 12: Number of Employees Hired by Year
-                st.header("📊 Number of Employees Hired by Year")
-                df["hire_year"] = pd.to_datetime(df["hire_date"], format= "%m/%d/%Y").dt.year  
-                result = df.groupby("hire_year").size().reset_index(name="employee_count")  
-                result = result.sort_values(by="hire_year")  
-                sns.set(style="dark")
-                
-                plt.figure(figsize=(10, 6))
-                sns.lineplot(x='hire_year', y='employee_count', data=result, marker='o', color='blue')
-                plt.title('Number of Employees Hired by Year', fontsize=16)
-                plt.xlabel('Year', fontsize=14)
-                plt.ylabel('Number of Employees', fontsize=14)
-                plt.xticks(fontsize=12)
-                plt.yticks(fontsize=12)
-                
-                for index, row in result.iterrows():
-                    plt.text(row['hire_year'], row['employee_count'] + 0.1, f"{row['employee_count']:,}", ha='center', va='bottom', fontsize=12)
-                
-                plt.grid(False)
-                plt.tight_layout()
-                st.pyplot(plt)
+
         
-                # Visualization 13: Number of Exits per Year
+                # Visualization 12: Number of Exits per Year
                 st.header("📊 Number of Exits per Year")
                 df["last_date"] = pd.to_datetime(df["last_date"], errors="coerce")
                 df_valid = df[df["last_date"].notna()]
@@ -381,7 +361,7 @@ if st.session_state["logged_in"]:
                 st.pyplot(plt)
 
         
-                # Visualization 14: Gender Distribution in the Company
+                # Visualization 13: Gender Distribution in the Company
                 st.header("📊 Gender Distribution in the Company")
                 female_count = df[df["sex"] == "F"].shape[0]
                 male_count = df[df["sex"] == "M"].shape[0]
