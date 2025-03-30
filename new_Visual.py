@@ -359,8 +359,22 @@ if st.session_state["logged_in"]:
                     for index, value in enumerate(summary['Total_emp']):
                         plt.text(index, value * 0.5, str(value), color='white', ha='center', va='bottom', fontsize=12)
                     st.pyplot(plt)
+
+
+                    # Visualization 7: Distribution of Employees by Tenure
+                    df_unique = df.drop_duplicates(subset="emp_no")
         
-                    # Visualization 7: Tenure Distribution
+                    plt.figure(figsize=(14, 5))
+                    plt.hist(df_unique["tenure"],bins=15, color="skyblue", edgecolor="black")
+                    plt.title("Distribution of Employees by Tenure", fontsize=16,fontweight='bold')
+                    plt.xlabel("Tenure (Years)", fontsize=12)
+                    plt.ylabel("Total Employees", fontsize=12)
+                    plt.grid(axis="y", linestyle="--", alpha=0.7)
+        
+                    st.pyplot(plt)
+
+                    
+                    # Visualization 8: Tenure Distribution
                     def tenure_group(tenure):
                         if 1 <= tenure <= 4: return "Low Tenure(1-4)"
                         elif 4 < tenure <= 8: return "Medium Tenure(5-8)"
@@ -380,7 +394,7 @@ if st.session_state["logged_in"]:
                     plt.ylabel("Number of Employees", fontsize=12)
                     st.pyplot(plt)
         
-                    # Visualization 8: Hiring Trend
+                    # Visualization 9: Hiring Trend
                     df["hire_year"] = pd.to_datetime(df["hire_date"]).dt.year
                     result = df.groupby("hire_year")["emp_no"].nunique().reset_index(name="employee_count") 
                     result = result.sort_values(by="hire_year")
@@ -394,7 +408,7 @@ if st.session_state["logged_in"]:
                                 ha='center', va='bottom', fontsize=10)
                     st.pyplot(plt)
         
-                    # Visualization 9: Exit Trends
+                    # Visualization 10: Exit Trends
                     if 'last_date' in df.columns:
                         df['exit_year'] = df['last_date'].dt.year
                         exit_counts = (df.groupby('exit_year', observed=True)
@@ -412,7 +426,7 @@ if st.session_state["logged_in"]:
                                    fontsize=10, bbox=dict(facecolor='white', alpha=0.8, edgecolor='none'))
                         st.pyplot(plt)
         
-                    # Visualization 10: Total Employees by Year
+                    # Visualization 11: Total Employees by Year
                     if all(col in df.columns for col in ['hire_date', 'last_date']):
                         hired = df.groupby(df['hire_date'].dt.year)["emp_no"].nunique().reset_index(name="total_emp_hired")
                         left = df[df['left'] == 1].groupby(df['last_date'].dt.year)["emp_no"].nunique().reset_index(name="total_emp_left")
@@ -439,7 +453,7 @@ if st.session_state["logged_in"]:
                 with tab3:
                     st.header("Department Level Analysis")
                     
-                    # Visualization 11: Employees by Department
+                    # Visualization 12: Employees by Department
                     result = df.groupby('dept_name')["emp_no"].nunique().reset_index(name='total_emp')
                     result = result.sort_values(by='total_emp', ascending=False).reset_index(drop=True)
                     plt.figure(figsize=(14, 5))
@@ -451,7 +465,7 @@ if st.session_state["logged_in"]:
                     plt.ylabel('Department Name', fontsize=12)
                     st.pyplot(plt)
         
-                    # Visualization 12: Average Salary by Department
+                    # Visualization 13: Average Salary by Department
                     df_grouped = df.groupby('dept_name').agg(
                         avg_salary=('salary', 'mean'),
                         total_employees=('salary', 'count')
@@ -468,7 +482,7 @@ if st.session_state["logged_in"]:
                     plt.xticks(rotation=45, ha='right')
                     st.pyplot(plt)
         
-                    # Visualization 13: Managers by Department
+                    # Visualization 14: Managers by Department
                     manager_counts = (df[df['title'] == 'Manager']
                                      .groupby('dept_name')['emp_no']
                                      .count()
@@ -490,7 +504,7 @@ if st.session_state["logged_in"]:
                 with tab4:
                     st.header("Salary Analysis")
                     
-                    # Visualization 14: Year-wise Average Salary
+                    # Visualization 15: Year-wise Average Salary
                     if all(col in df.columns for col in ['hire_date', 'last_date', 'salary']):
                         try:
                             final_table = df.copy()
@@ -565,8 +579,22 @@ if st.session_state["logged_in"]:
                     else:
                         st.warning("Required columns (hire_date, last_date, salary) not available")
         
+
+
+                    # Visualization 16: Distribution of Employees by salary
+            
+                    df_unique = df.drop_duplicates(subset=["emp_no"])
         
-                    # Visualization 15: Salary by Job Title
+                    plt.figure(figsize=(10, 4))
+                    plt.hist(df_unique["salary"], bins=15, color="skyblue", edgecolor="black")
+                    plt.title(" Distribution of Employees by salary",fontsize=14,fontweight='bold')
+                    plt.xlabel("Salary", fontsize=10)
+                    plt.ylabel("Total Employees", fontsize=10)
+                    plt.grid(False)
+                    st.pyplot(plt)
+
+                    
+                    # Visualization 17: Salary by Job Title
                     result = df.groupby(['title', 'emp_no'])['salary'].mean().reset_index()
                     result = result.groupby('title')['salary'].mean().reset_index(name='avg_sal')
                     result = result.sort_values(by='avg_sal', ascending=False)
@@ -580,7 +608,7 @@ if st.session_state["logged_in"]:
                                    ha='center', va='bottom', fontsize=10)
                     st.pyplot(plt)
         
-                    # Visualization 16: Salary by Performance Rating
+                    # Visualization 18: Salary by Performance Rating
                     filtered_table = df.drop_duplicates(subset='emp_no')
                     result = filtered_table.groupby('Last_performance_rating').agg(
                         avg_salary=('salary', 'mean'),
@@ -596,7 +624,7 @@ if st.session_state["logged_in"]:
                     plt.ylabel('Average Salary',fontsize=10)
                     st.pyplot(plt)
         
-                    # Visualization 17: Employees by Salary Range
+                    # Visualization 19: Employees by Salary Range
                     df['salary'] = df.groupby('emp_no')['salary'].transform('mean').round()
                     df['salary_range'] = pd.cut(
                         df['salary'],
