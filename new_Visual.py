@@ -21,29 +21,36 @@ st.markdown(
             gap: 10px;
         }
         .stTabs [data-baseweb="tab"] {
-            height: 60px;  /* Increased height to accommodate larger text */
+            height: 70px;  /* Increased height */
             white-space: pre-wrap;
             background-color: #F0F2F6;
             border-radius: 4px 4px 0px 0px;
             gap: 10px;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            font-size: 1.2rem !important;  /* Increased font size */
-            font-weight: 600 !important;   /* Made text bolder */
+            padding-top: 15px;
+            padding-bottom: 15px;
+            font-size: 1.4rem !important;  /* Larger font size */
+            font-weight: 700 !important;   /* Bolder text */
         }
         .stTabs [aria-selected="true"] {
             background-color: #FFFFFF;
-            font-size: 1.3rem !important;  /* Slightly larger for selected tab */
+            font-size: 1.5rem !important;  /* Even larger for selected tab */
         }
         /* Optional: Increase space between tabs */
         .stTabs [data-baseweb="tab"]:not(:last-child) {
-            margin-right: 12px;
+            margin-right: 15px;
+        }
+        /* Make tab labels wrap if needed */
+        .stTabs [data-baseweb="tab"] > div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
         }
     </style>
     """,
     unsafe_allow_html=True,
 )
-
 # Function to load data from a public Google Drive link
 def load_data_from_google_drive(public_link):
     try:
@@ -191,7 +198,9 @@ if st.session_state["logged_in"]:
                         avg_ratings = 'A'
                     st.metric("Avg Performance Rating", avg_ratings)
                 with col14:
-                    st.metric("Salary Range", f"{df.groupby('emp_no')['salary'].min().min():.1f} - {df.groupby('emp_no')['salary'].max().max():.1f}")
+                        min_salary = df.groupby('emp_no')['salary'].min().min()
+                        max_salary = df.groupby('emp_no')['salary'].max().max()
+                        st.metric("Salary Range", f"${min_salary/1000:.1f}k - ${max_salary/1000:.1f}k")
                     
                 with col15:
                     left_employees = df[df['left'] == 1]['emp_no'].nunique()
