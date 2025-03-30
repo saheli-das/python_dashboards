@@ -14,7 +14,7 @@ st.markdown(
     """
     <style>
         .main .block-container {
-            max-width: 95%;
+            max-width: 90%;
             padding: 2rem;
         }
         .stTabs [data-baseweb="tab-list"] {
