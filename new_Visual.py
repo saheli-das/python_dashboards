@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import traceback
 from datetime import datetime
+import requests
 
 # Page configuration
 st.set_page_config(layout="wide")
