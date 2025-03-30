@@ -200,7 +200,7 @@ if st.session_state["logged_in"]:
                 with col14:
                         min_salary = df.groupby('emp_no')['salary'].min().min()
                         max_salary = df.groupby('emp_no')['salary'].max().max()
-                        st.metric("Salary Range", f"${min_salary/1000:.1f}k - ${max_salary/1000:.1f}k")
+                        st.metric("Salary Range", f"{min_salary/1000:.1f}k - {max_salary/1000:.1f}k")
                     
                 with col15:
                     left_employees = df[df['left'] == 1]['emp_no'].nunique()
