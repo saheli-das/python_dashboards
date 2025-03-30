@@ -125,7 +125,7 @@ if st.session_state["logged_in"]:
                 # Sidebar filters
                 st.sidebar.header("🔍 Filters")
                 department_name = st.sidebar.multiselect("Department Name", df["dept_name"].unique())
-                left_filter = st.sidebar.selectbox("Left", ["All", "Left", "Stayed"])
+                left_filter = st.sidebar.selectbox("Left", ["Employee Status", "Left", "Stayed"])
                 title_filter = st.sidebar.multiselect("Job Title", df["title"].unique())
                 gender_filter = st.sidebar.selectbox("Gender", ["All", "M", "F"])
                
